@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+		
+	<context:component-scan base-package="com.meetups">
+	</context:component-scan>
+	
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+	
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="jspViewResolver">
+ 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+ 		<property name="prefix" value="/WEB-INF/views/"></property>
+ 		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+ 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+ 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="admin"></property>
+ 		<property name="password" value="root"></property>
+	</bean>
+
+	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" id="sessionFactory">
+ 		<property name="dataSource" ref="dataSource"></property>
+ 		<property name="annotatedClasses">
+  			<list>
+   				<value>com.meetups.model.Member</value>
+  			</list>
+ 		</property>
+ 		<property name="hibernateProperties">
+ 			<props>
+  				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+  				<prop key="hibernate.show_sql">true</prop>
+  				<prop key="hibernate.hbm2ddl.auto">update</prop>    
+        	</props>
+      	</property>
+	</bean>
+
+  	<bean class="org.springframework.orm.hibernate4.HibernateTransactionManager" id="hibernateTransactionManager">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+  	</bean>
+</beans>	
+	

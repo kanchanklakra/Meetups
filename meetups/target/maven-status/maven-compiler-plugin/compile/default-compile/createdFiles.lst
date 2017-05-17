@@ -1,0 +1,7 @@
+com\meetups\model\Member.class
+com\meetups\service\MemberServiceImpl.class
+com\meetups\bean\MemberBean.class
+com\meetups\dao\MemberDao.class
+com\meetups\controller\MemberController.class
+com\meetups\service\MemberService.class
+com\meetups\dao\MemberDaoImpl.class
